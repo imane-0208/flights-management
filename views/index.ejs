@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<title>Safi Air</title>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="css/style.css" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+</head>
+
+<body>
+	<div id="booking" class="section">
+		<div class="section-center">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-7 col-md-push-5">
+						<div class="booking-cta">
+							<h1>Make your reservation</h1>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi facere, soluta magnam consectetur molestias itaque
+								ad sint fugit architecto incidunt iste culpa perspiciatis possimus voluptates aliquid consequuntur cumque quasi.
+								Perspiciatis.
+							</p>
+						</div>
+					</div>
+					<div class="col-md-4 col-md-pull-7">
+						<div class="booking-form">
+							<form action="/volsf" method="post" >
+								<div class="form-group">
+									<span class="form-label">Votre Ville de depart</span>
+									
+									<select class="form-control" id="depart" name="depart">
+										<option value="">Entrer votre ville de depart</option>
+										<% rows.forEach(function(row){ %>
+											<option value="<%= row.villeDepart %>"><%= row.villeDepart %></option>
+										<% }); %>
+									  </select>
+								</div>  
+								<div class="form-group">
+									<span class="form-label">Votre Destination</span>
+									<!-- <input type="text" value="yy" name="aa" id="aa"> -->
+									<select class="form-control" id="destination" name="destination">
+										<option value="">Entrer votre ville de destination</option>
+										<% rows.forEach(function(row){ %>
+											<option value="<%= row.villeArrivee %>"><%= row.villeArrivee %></option>
+										<% }); %>
+									  </select>
+								</div>
+								<div class="form-group">
+									<span class="form-label">Heur Depart</span>
+									
+									<select class="form-control" id="heurD" name="heurdepart">
+										<option value="">Entrer l'heur de Depart</option>
+										<% rows.forEach(function(row){ %>
+											<option value="<%= row.heurDepart %>"><%= row.heurDepart %></option>
+										<% }); %>
+									  </select>
+								</div>
+								
+								<div class="form-group">
+									<span class="form-label">Date De Voyage</span>
+									<input class="form-control"  type="date" placeholder="Entrer la date de voyage " name="dateD" id="datedepart">
+								</div>
+								<div class="form-group">
+									<span class="form-label">Nombre des places</span>
+									<input class="form-control" type="number" placeholder="Entrer le nombre des places " name="nbrP" id="nbrplace">
+								</div>
+								<div class="row">
+									
+								</div>
+								<div class="form-btn">
+									<button class="submit-btn">Check availability</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div id="">
+		
+	</div>
+</body>
+
+</html>

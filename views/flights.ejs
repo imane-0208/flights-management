@@ -12,8 +12,16 @@
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
 	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+	<!-- <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" /> -->
+
+    
+
+    
 
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
@@ -40,12 +48,16 @@
                     <div class="row">
 
 
+                        
+
+
                         <% rows.forEach(function(row){ %>
                             <div class="col-xs-12 col-sm-4">
                                 <div class="card">
                                     <a class="img-card" href="#">
                                     <img src="../img/background.jpg" />
                                   </a>
+                                  <input type="hidden" value="<%= row.id %>" name="idvol">
                                     <div class="card-content">
                                         <h4 class="card-title">
                                            from  <%= row.villeDepart %> to <%= row.villeArrivee %>
@@ -58,7 +70,7 @@
                                         </p>
                                     </div>
                                     <div class="card-read-more">
-                                        <a href="/book" class="btn btn-link btn-block">
+                                        <a href="/book/:<%= row.id %>" class="btn btn-link btn-block" data-bs-toggle="modal" data-bs-target="#staticBackdrop"">
                                             Book Now 
                                         </a>
                                     </div>
@@ -73,5 +85,79 @@
             </div>
         </div>
     </section>
+
+    <!-- Button trigger modal -->
+
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Launch static backdrop modal
+      </button>
+ -->
+
+      <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+
+
+            <form action="/save" method="post">
+                <% rows.forEach(function(row){ %>
+
+                    <input type="hidden" value=<%= row.id %> name="idvol">
+                    
+                    
+                    <% }); %>
+                    
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nom" name="nom" >
+                    
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">prenom</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom" >
+                    
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">phone</label>
+                    <input type="number" class="form-control" id="phone" name="phone" >
+                    
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Email address</label>
+                  <input type="email" class="form-control" id="email" name="email" >
+                  <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+
+
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+
     
 </body>

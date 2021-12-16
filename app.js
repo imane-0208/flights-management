@@ -7,6 +7,11 @@ const app = express();
 const mysql = require('mysql2');
 
 
+app.locals.data = {
+    'nbrplace': ''
+};
+
+
 
     const connection=mysql.createConnection({
         host:'localhost',
@@ -52,18 +57,73 @@ const mysql = require('mysql2');
     }); */
 
     app.post('/volsf', (req,res)=> {
+
+         req.app.locals.data.nbrplace = req.body.nbrp;
+
         
-         let sql = "SELECT * , escale.descrption FROM vol , escale WHERE villeDepart = '"+req.body.depart+"' and villeArrivee = '"+req.body.destination+"'   and heurDepart = '"+req.body.heurdepart+"' and  vol.idescale = escale.id ";
-        // let sql = `SELECT * , escale.descrption FROM vol , escale WHERE villeDepart= ${req.body.depart} and vol.idescale = escale.id` ;
+         let sql = "SELECT * , escale.descrption FROM vol , escale WHERE villeDepart = '"+req.body.depart+"' and villeArrivee = '"+req.body.destination+"'   and heurDepart = '"+req.body.heurdepart+"' and  vol.idescale = escale.id_esc ";
+        // let sql = `SELECT * , escale.descrption FROM vol , escale WHERE villeDepart= '${req.body.depart}' and vol.idescale = escale.id` ;
 
         let query = connection.query(sql, (err, rows) => {
-            if(err) throw err;
-            res.render('flights', {rows});
+            if(err) {throw err;}else{
+                console.log(rows)
+                res.render('flights', {rows:rows});
+
+            }
         });
     });
 
 
-    app.post('/book', (req,res)=> {
+
+    app.post('/save', (req, res) => {
+        let data = {nom: req.body.nom, prenom: req.body.prenom, phone: req.body.phone, email: req.body.email,};
+        const nbr_place = req.app.locals.data.nbrplace ;
+        let sql = "INSERT INTO user SET ?";
+        let query = connection.query(sql, data, (err, results) => {
+            if(err) {
+                throw err;
+            } else{
+                console.log('user good')
+                let sqll = 'SELECT * FROM user ORDER BY id DESC LIMIT 1';
+                 connection.query(sqll, data, (err, results) => {
+                    if(err) {
+                        throw err;
+                    } else{
+                        const id_user=results[0].id;                 
+                        console.log(id_user);
+                        
+                        let data = {idUser: id_user, idVol: req.body.idvol, idExtra: 1, nbrPlace: nbr_place};
+                        let sqlll = "INSERT INTO reservation SET ?";
+                         connection.query(sqlll, data, (err, results) =>{
+
+                            if(err) {
+                                throw err;
+                            } else{
+                                console.log('helloooreserv');
+                                res.render('reserv');
+
+                            }
+
+
+                        })
+
+                    }
+        
+                });
+            }
+
+        });
+    });
+
+
+
+
+
+
+    /* app.post('/book/:idvol', (req,res)=> {
+
+
+
         
         let sql = "SELECT * , escale.descrption FROM vol , escale WHERE villeDepart = '"+req.body.depart+"' and villeArrivee = '"+req.body.destination+"'   and heurDepart = '"+req.body.heurdepart+"' and  vol.idescale = escale.id ";
        // let sql = `SELECT * , escale.descrption FROM vol , escale WHERE villeDepart= ${req.body.depart} and vol.idescale = escale.id` ;
@@ -72,7 +132,7 @@ const mysql = require('mysql2');
            if(err) throw err;
            res.render('flights', {rows});
        });
-   });
+   }); */
 
 
 
